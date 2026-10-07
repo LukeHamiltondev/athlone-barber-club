@@ -11,7 +11,7 @@ In `config/shop.json`, replace every `PLACEHOLDER`:
 
 ## 2. Photos (10 minutes)
 
-Instagram doesn't allow automated downloads. From the owner's phone or instagram.com/athlonebarberclub, save 8 of the best photos and put them in `public/images/gallery/` named `1.jpg` to `8.jpg`. `1.jpg` is the big photo at the top of the site, so pick a strong portrait-shaped one.
+Instagram doesn't allow automated downloads. From the owner's phone or instagram.com/athlonebarberclub, six haircut photos are already in `public/images/gallery/`. To add or swap photos, save them square as `7.jpg` and so on and add a line to the `GALLERY` list in `public/app.js`. The shopfront photo at the top of the site is already in place (`public/images/hero.jpg`); a bigger original of it would look sharper on large screens.
 
 ## 3. Hosting and domain
 
