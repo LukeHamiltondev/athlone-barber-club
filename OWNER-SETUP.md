@@ -19,12 +19,18 @@ Instagram doesn't allow automated downloads. From the owner's phone or instagram
 - A domain, e.g. athlonebarberclub.ie (.ie domains need a connection to Ireland, which the shop has).
 - Set `PUBLIC_URL` to that domain and pick a long `ADMIN_PASSWORD`.
 
+## Later: the AI phone receptionist
+
+The phone agent is switched off for now, so steps 4 to 6 can wait. The website and online booking work without them. When you're ready, do these steps and set `PHONE_AGENT=true`.
+
 ## 4. Anthropic account (the AI that talks on the phone)
 
 - Sign up at console.anthropic.com, add a card, create an API key, set it as `ANTHROPIC_API_KEY`.
 - Billing is per call based on usage. The default model is `claude-opus-5-5`. Set `AGENT_MODEL` to change it.
 
 ## 5. Twilio account (the phone line, texts and voice)
+
+Booking confirmation texts also use Twilio. Without it, bookings still work but no texts are sent, so you may want this step even before the phone agent.
 
 - Sign up at twilio.com and upgrade from trial (trial accounts play a message before every call).
 - Buy an Irish phone number with voice and SMS. Irish numbers need a regulatory bundle (proof of a business address in Ireland), which Twilio walks you through.
@@ -44,7 +50,7 @@ Either way, set `OWNER_MOBILE` so the AI can put callers through and text him ne
 ## 7. Try it
 
 1. Book on the website and check the text arrives.
-2. Ring the number, book a fade, then ring again and cancel it.
+2. Once the phone agent is on: ring the number, book a fade, then ring again and cancel it.
 3. Ask the AI for the owner and check the transfer.
 4. Open `/admin` and check all three show up.
 
