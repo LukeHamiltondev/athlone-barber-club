@@ -1,0 +1,34 @@
+{
+  "_note": "Edit this file to change services, prices, hours and barbers. Items marked PLACEHOLDER need the owner's real details.",
+  "name": "Athlone Barber Club",
+  "tagline": "Sharp cuts and proper shaves in the heart of Athlone.",
+  "address": "PLACEHOLDER street address, Athlone, Co. Westmeath",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Athlone+Barber+Club+Athlone",
+  "instagram": "https://www.instagram.com/athlonebarberclub/",
+  "phoneDisplay": "PLACEHOLDER 090 000 0000",
+  "timezone": "Europe/Dublin",
+  "currency": "EUR",
+  "slotIntervalMinutes": 15,
+  "minNoticeMinutes": 30,
+  "maxDaysAhead": 30,
+  "hours": {
+    "mon": ["09:00", "18:00"],
+    "tue": ["09:00", "18:00"],
+    "wed": ["09:00", "18:00"],
+    "thu": ["09:00", "20:00"],
+    "fri": ["09:00", "20:00"],
+    "sat": ["09:00", "17:00"],
+    "sun": null
+  },
+  "barbers": [
+    { "id": "owner", "name": "PLACEHOLDER barber name" }
+  ],
+  "services": [
+    { "id": "skin-fade", "name": "Skin fade", "minutes": 30, "price": 20, "description": "Bald or skin fade, finished with a razor line-up." },
+    { "id": "haircut", "name": "Haircut", "minutes": 30, "price": 18, "description": "Scissor or clipper cut, washed and styled." },
+    { "id": "cut-beard", "name": "Haircut and beard", "minutes": 45, "price": 28, "description": "Any cut plus a beard shape with hot towel." },
+    { "id": "beard", "name": "Beard trim", "minutes": 15, "price": 10, "description": "Shape, line-up and hot towel." },
+    { "id": "kids", "name": "Kids cut (under 12)", "minutes": 30, "price": 15, "description": "Patient cuts for younger clients." },
+    { "id": "senior", "name": "Senior cut (65+)", "minutes": 30, "price": 15, "description": "Classic cut at a reduced price." }
+  ]
+}

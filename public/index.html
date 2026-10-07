@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Athlone Barber Club</title>
+  <meta name="description" content="Athlone Barber Club. Fades, cuts and beard trims in Athlone. Book online or ring any time, day or night.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#book">Skip to booking</a>
+
+  <header class="bar">
+    <a class="bar-name" href="#top">Athlone Barber Club</a>
+    <nav aria-label="Main">
+      <a href="#prices">Prices</a>
+      <a href="#work">Work</a>
+      <a href="#visit">Visit</a>
+      <a class="bar-book" href="#book">Book</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title" class="sign">Athlone Barber Club</h1>
+        <p class="hero-line" data-shop="tagline">Sharp cuts and proper shaves in the heart of Athlone.</p>
+        <div class="hero-actions">
+          <a class="btn btn-light" href="#book">Book a cut</a>
+          <a class="btn btn-line" data-shop="tel" href="#visit">Ring the shop</a>
+        </div>
+        <p class="hero-note">The phone is answered every hour of the day, so you can book even when the chairs are full.</p>
+      </div>
+      <figure class="hero-photo">
+        <img data-gallery="1" alt="A fresh cut at Athlone Barber Club">
+      </figure>
+    </section>
+
+    <section id="prices" class="prices" aria-labelledby="prices-title">
+      <div class="wrap">
+        <h2 id="prices-title">Prices</h2>
+        <p class="lede">Pay in the shop by card or cash. Times are how long the chair is yours.</p>
+        <ul class="price-list" id="price-list"></ul>
+      </div>
+    </section>
+
+    <section id="work" class="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="work-head">
+          <h2 id="work-title">Recent work</h2>
+          <a class="text-link" data-shop="instagram" href="https://www.instagram.com/athlonebarberclub/">More on Instagram @athlonebarberclub</a>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <section id="book" class="book" aria-labelledby="book-title">
+      <div class="wrap">
+        <h2 id="book-title">Book your chair</h2>
+        <p class="lede">No app and no account. You'll get a text to confirm.</p>
+
+        <form id="booking" class="booking" novalidate>
+          <fieldset class="step" id="step-service">
+            <legend><span class="step-n">1</span> Choose a service</legend>
+            <div class="choices" id="service-choices"></div>
+          </fieldset>
+
+          <fieldset class="step" id="step-barber" hidden>
+            <legend><span class="step-n">2</span> Choose a barber</legend>
+            <div class="choices" id="barber-choices"></div>
+          </fieldset>
+
+          <fieldset class="step" id="step-day" disabled>
+            <legend><span class="step-n" data-n="day">2</span> Pick a day</legend>
+            <div class="days" id="day-choices"></div>
+          </fieldset>
+
+          <fieldset class="step" id="step-time" disabled>
+            <legend><span class="step-n" data-n="time">3</span> Pick a time</legend>
+            <div class="times" id="time-choices" aria-live="polite"><p class="muted">Pick a day to see free times.</p></div>
+          </fieldset>
+
+          <fieldset class="step" id="step-details" disabled>
+            <legend><span class="step-n" data-n="details">4</span> Your details</legend>
+            <div class="fields">
+              <label>Name<input name="name" autocomplete="name" required maxlength="80"></label>
+              <label>Mobile number<input name="phone" type="tel" autocomplete="tel" required placeholder="087 123 4567"></label>
+              <label class="wide">Anything we should know? <span class="muted">(optional)</span><input name="notes" maxlength="300"></label>
+              <label class="hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <p class="summary" id="summary" aria-live="polite"></p>
+            <button class="btn btn-dark" type="submit" id="confirm">Confirm booking</button>
+            <p class="form-error" id="form-error" role="alert"></p>
+          </fieldset>
+        </form>
+
+        <div class="booked" id="booked" hidden tabindex="-1">
+          <h3>You're booked in</h3>
+          <p id="booked-text"></p>
+          <p class="muted">To change or cancel, ring the shop and the receptionist will sort it.</p>
+          <button class="btn btn-line-dark" type="button" id="book-another">Book another</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="visit" aria-labelledby="visit-title">
+      <div class="wrap visit-grid">
+        <div>
+          <h2 id="visit-title">Visit</h2>
+          <p class="address" data-shop="address"></p>
+          <p><a class="text-link" data-shop="maps" href="#">Open in Google Maps</a></p>
+          <p class="phone-line"><a data-shop="tel" href="#">Ring the shop</a></p>
+        </div>
+        <table class="hours" aria-label="Opening hours"><tbody id="hours"></tbody></table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>Athlone Barber Club, Athlone, Co. Westmeath</p>
+      <p><a data-shop="instagram" href="https://www.instagram.com/athlonebarberclub/">Instagram</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

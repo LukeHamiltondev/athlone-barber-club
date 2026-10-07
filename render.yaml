@@ -1,0 +1,32 @@
+# One-click deploy on Render (render.com): New > Blueprint > pick this repo.
+services:
+  - type: web
+    name: athlone-barber-club
+    runtime: node
+    plan: starter            # a paid plan is needed for the disk that keeps the diary
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/shop
+    disk:
+      name: diary
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /var/data
+      - key: PUBLIC_URL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_PHONE_NUMBER
+        sync: false
+      - key: OWNER_MOBILE
+        sync: false
+      - key: RING_OWNER_FIRST_SECONDS
+        value: "0"
