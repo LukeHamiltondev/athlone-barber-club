@@ -133,6 +133,9 @@ h2 { font: 900 clamp(2.5rem, 6vw, 4rem)/0.95 var(--display); margin: 0 0 12px; c
 .foot { padding: 28px 0; background: var(--ink); color: #9AA5B2; font-size: 0.9rem; }
 .foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 .foot p { margin: 0; }
+.foot-links { display: flex; gap: 20px; }
+.foot a { color: #C9D0D8; }
+.foot a:hover { color: var(--brass); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
