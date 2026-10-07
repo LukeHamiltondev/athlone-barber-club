@@ -16,7 +16,7 @@ function pressed(container, btn) {
   container.querySelectorAll("[aria-pressed]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
 }
 
-// Photos: drop Instagram images into public/images/gallery as 1.jpg ... 8.jpg. 1.jpg is also the big hero photo.
+// Photos: drop Instagram images into public/images/gallery as 1.jpg ... 8.jpg. The hero is public/images/hero.jpg.
 function placeholderOnError(img) {
   img.addEventListener("error", () => { img.src = "images/gallery/placeholder.svg"; }, { once: true });
 }
@@ -36,10 +36,6 @@ function renderGallery(shop) {
     a.append(img);
     g.append(a);
   }
-  document.querySelectorAll("img[data-gallery]").forEach((img) => {
-    placeholderOnError(img);
-    img.src = `images/gallery/${img.dataset.gallery}.jpg`;
-  });
 }
 
 function renderShopDetails(shop) {
