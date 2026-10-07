@@ -31,7 +31,7 @@ Edit `config/shop.json`. Everything (site, booking form, phone agent) reads from
 
 ## Photos
 
-Instagram blocks automatic downloads, so save the photos by hand and drop them in `public/images/gallery/` as `1.jpg` to `8.jpg`. The big photo at the top is `public/images/hero.jpg` (the shopfront). Until then a striped placeholder shows.
+Instagram blocks automatic downloads, so save the photos by hand and drop them in `public/images/gallery/` as square `1.jpg`, `2.jpg` and so on, with a matching line of alt text in the `GALLERY` list in `public/app.js`. Six are in place now. The big photo at the top is `public/images/hero.jpg` (the shopfront).
 
 ## Deploy
 

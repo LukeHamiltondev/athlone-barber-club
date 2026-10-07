@@ -1,7 +1,15 @@
 const $ = (s, el = document) => el.querySelector(s);
 const DAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 const DAY_NAMES = { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" };
-const GALLERY_COUNT = 8;
+// Alt text for each photo in public/images/gallery, in order (1.jpg, 2.jpg, ...).
+const GALLERY = [
+  "Textured quiff with a full beard",
+  "Clipper work on a taper, mid cut",
+  "Buzz cut with a skin fade and beard",
+  "Low skin fade, side view",
+  "Textured mullet with a taper fade",
+  "Blonde textured crop with a taper",
+];
 
 const state = { shop: null, service: null, barber: "any", date: null, time: null };
 
@@ -16,26 +24,27 @@ function pressed(container, btn) {
   container.querySelectorAll("[aria-pressed]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
 }
 
-// Photos: drop Instagram images into public/images/gallery as 1.jpg ... 8.jpg. The hero is public/images/hero.jpg.
+// Photos: square images in public/images/gallery as 1.jpg, 2.jpg, ... with a line each in GALLERY. The hero is public/images/hero.jpg.
 function placeholderOnError(img) {
   img.addEventListener("error", () => { img.src = "images/gallery/placeholder.svg"; }, { once: true });
 }
 
 function renderGallery(shop) {
   const g = $("#gallery");
-  for (let i = 1; i <= GALLERY_COUNT; i++) {
+  GALLERY.forEach((alt, idx) => {
+    const i = idx + 1;
     const a = document.createElement("a");
     a.href = shop.instagram;
     a.target = "_blank";
     a.rel = "noopener";
     const img = document.createElement("img");
     img.loading = "lazy";
-    img.alt = `Haircut by Athlone Barber Club, photo ${i}`;
+    img.alt = alt;
     placeholderOnError(img);
     img.src = `images/gallery/${i}.jpg`;
     a.append(img);
     g.append(a);
-  }
+  });
 }
 
 function renderShopDetails(shop) {
