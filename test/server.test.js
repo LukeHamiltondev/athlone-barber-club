@@ -10,7 +10,7 @@ async function start(overrides = {}, script = []) {
   const config = {
     root, port: 0, publicUrl: "", adminPassword: "secret", dataDir: tmpDir(), anthropicModel: "claude-opus-5-5",
     twilio: { accountSid: "", authToken: "tok", phoneNumber: "", validateSignatures: true },
-    ownerMobile: "+353860000000", ringOwnerFirstSeconds: 15, notifyOwnerBySms: true, smsCustomerConfirmations: true,
+    phoneAgentEnabled: true, ownerMobile: "+353860000000", ringOwnerFirstSeconds: 15, notifyOwnerBySms: true, smsCustomerConfirmations: true,
     voice: { language: "en-GB", ttsProvider: "ElevenLabs", name: "" }, ...overrides,
   };
   const app = createApp({ config, loadShop: () => shop, anthropicClient: fakeClient(script), sendSms: async (to, body) => sms.push({ to, body }), clock: fixedClock, log: { info() {}, error() {} } });
@@ -110,5 +110,21 @@ test("unsigned WebSocket connections are refused", async () => {
     const ws = new WebSocket(s.base.replace("http", "ws") + "/voice/relay");
     const err = await new Promise((r) => { ws.on("error", r); ws.on("open", () => r(null)); });
     assert.ok(err);
+  } finally { await s.close(); }
+});
+
+test("with the phone agent off, voice routes are not served", async () => {
+  const s = await start({ phoneAgentEnabled: false });
+  try {
+    const params = { CallSid: "CA1", From: "+353871234567" };
+    const r = await fetch(`${s.base}/voice/incoming`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Twilio-Signature": sign("tok", `${s.base}/voice/incoming`, params) },
+      body: new URLSearchParams(params),
+    });
+    assert.equal(r.status, 404);
+    assert.equal((await (await fetch(`${s.base}/api/shop`)).json()).phoneAgent, false);
+    const ws = new WebSocket(s.base.replace("http", "ws") + "/voice/relay", { headers: { "X-Twilio-Signature": sign("tok", s.base.replace("http", "ws") + "/voice/relay", {}) } });
+    assert.ok(await new Promise((res) => { ws.on("error", res); ws.on("open", () => res(null)); }));
   } finally { await s.close(); }
 });

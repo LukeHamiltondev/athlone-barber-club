@@ -73,7 +73,7 @@ export function createApp({ config, loadShop, anthropicClient, sendSms: sendSmsO
     return {
       name: s.name, tagline: s.tagline, address: s.address, mapsUrl: s.mapsUrl, instagram: s.instagram,
       phoneDisplay: s.phoneDisplay, hours: s.hours, maxDaysAhead: s.maxDaysAhead,
-      barbers: s.barbers, services: s.services, today: bookings.today(),
+      barbers: s.barbers, services: s.services, today: bookings.today(), phoneAgent: config.phoneAgentEnabled,
     };
   }
 
@@ -152,7 +152,7 @@ export function createApp({ config, loadShop, anthropicClient, sendSms: sendSmsO
     }
 
     // ---- Twilio voice webhooks ----
-    if (p.startsWith("/voice/") && req.method === "POST") {
+    if (p.startsWith("/voice/") && req.method === "POST" && config.phoneAgentEnabled) {
       const params = await readBody(req);
       if (!twilioOk(req, params)) {
         res.writeHead(403);
@@ -206,7 +206,7 @@ export function createApp({ config, loadShop, anthropicClient, sendSms: sendSmsO
   server.on("upgrade", (req, socket, head) => {
     const url = new URL(req.url, "http://x");
     const signed = !config.twilio.validateSignatures || validSignature(config.twilio.authToken, req.headers["x-twilio-signature"], config.publicUrl.replace(/^http/, "ws") + req.url, {});
-    if (url.pathname !== "/voice/relay" || !signed) {
+    if (!config.phoneAgentEnabled || url.pathname !== "/voice/relay" || !signed) {
       socket.write("HTTP/1.1 403 Forbidden\r\n\r\n");
       return socket.destroy();
     }

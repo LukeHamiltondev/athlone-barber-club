@@ -5,11 +5,11 @@ Website, online booking and a 24/7 AI phone receptionist for Athlone Barber Club
 - **Website** (`public/`): prices, Instagram photos, opening hours, and a four-step booking form.
 - **Booking diary** (`src/bookings.js`, `src/store.js`): one source of truth for free times, used by the website, the phone and the owner. Stored in `data/bookings.json`.
 - **Owner's diary** (`/admin`): see upcoming bookings, cancel, block out lunch or days off, read phone messages.
-- **AI phone receptionist** (`src/agent.js`): Twilio answers the call and turns speech into text (ConversationRelay); Claude talks to the caller and uses the diary through tools to check times, book, find and cancel the caller's own bookings, take messages, or put the caller through to the owner. Customers and the owner get a text for each booking.
+- **AI phone receptionist** (`src/agent.js`), **off for now**. Set `PHONE_AGENT=true` to turn it on. Twilio answers the call and turns speech into text (ConversationRelay); Claude talks to the caller and uses the diary through tools to check times, book, find and cancel the caller's own bookings, take messages, or put the caller through to the owner. Customers and the owner get a text for each booking.
 
 ![The website on desktop](docs/screenshots/desktop-full.png)
 
-## How a call flows
+## How a call flows (once the phone agent is on)
 
 1. A customer rings the shop's Twilio number (or the owner's own number forwards unanswered calls to it).
 2. Optional: the owner's mobile rings first for `RING_OWNER_FIRST_SECONDS`. If he answers, that's it.

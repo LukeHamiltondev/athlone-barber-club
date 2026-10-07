@@ -199,5 +199,6 @@ async function submit(e) {
 const res = await fetch("/api/shop");
 state.shop = await res.json();
 renderShopDetails(state.shop);
+$("#phone-note").hidden = !state.shop.phoneAgent;
 renderGallery(state.shop);
 renderBooking(state.shop);

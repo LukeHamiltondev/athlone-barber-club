@@ -23,6 +23,8 @@ export const config = {
   adminPassword: env.ADMIN_PASSWORD || "",
   dataDir: path.resolve(root, env.DATA_DIR || "data"),
   shopFile: path.resolve(root, env.SHOP_CONFIG || "config/shop.json"),
+  // The AI phone receptionist is off unless PHONE_AGENT=true.
+  phoneAgentEnabled: bool(env.PHONE_AGENT, false),
   anthropicModel: env.AGENT_MODEL || "claude-opus-5-5",
   twilio: {
     accountSid: env.TWILIO_ACCOUNT_SID || "",
