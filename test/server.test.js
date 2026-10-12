@@ -33,6 +33,7 @@ test("website: shop info, availability, booking, double booking refused", async 
     const body = { service: "haircut", date: "2026-10-08", time: "10:00", name: "Seán", phone: "087 123 4567" };
     const r = await fetch(`${s.base}/api/bookings`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     assert.equal(r.status, 201);
+    assert.equal((await r.json()).payment, "shop");
     assert.equal(s.sms.length, 2); // customer + owner
     const again = await fetch(`${s.base}/api/bookings`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...body, phone: "0861111111" }) });
     assert.equal(again.status, 400);

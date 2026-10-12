@@ -104,13 +104,13 @@ export function createApp({ config, loadShop, anthropicClient, sendSms: sendSmsO
       if (body.website) return json(res, 400, { error: "Booking rejected." }); // honeypot field bots fill in
       const b = bookings.book({
         serviceId: body.service, date: body.date, time: body.time, barberId: body.barber || "any",
-        name: body.name, phone: body.phone, notes: body.notes, source: "website",
+        name: body.name, phone: body.phone, notes: body.notes, source: "website", payment: body.payment,
       });
       if (config.smsCustomerConfirmations) {
         await sendSms(b.phone, `${loadShop().name}: you're booked for ${b.serviceName} on ${describeDate(b.date)} at ${describeTime(b.start)} (€${b.price}). Ref ${b.id}. To cancel or change, just ring us.`);
       }
       await notifyOwner?.(`New web booking: ${b.name}, ${b.serviceName}, ${describeDate(b.date)} at ${describeTime(b.start)}. ${b.phone}`);
-      return json(res, 201, { reference: b.id, service: b.serviceName, date: b.date, day: describeDate(b.date), time: describeTime(b.start), price: b.price });
+      return json(res, 201, { reference: b.id, service: b.serviceName, date: b.date, day: describeDate(b.date), time: describeTime(b.start), price: b.price, payment: b.payment });
     }
 
     // ---- Owner diary API ----

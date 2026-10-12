@@ -43,7 +43,7 @@
     <section id="prices" class="prices" aria-labelledby="prices-title">
       <div class="wrap">
         <h2 id="prices-title">Prices</h2>
-        <p class="lede">Pay in the shop by card or cash. Times are how long the chair is yours.</p>
+        <p class="lede">Pay by card when you book online, or in the shop by card or cash. Times are how long the chair is yours.</p>
         <ul class="price-list" id="price-list"></ul>
       </div>
     </section>
@@ -92,9 +92,25 @@
               <label class="wide">Anything we should know? <span class="muted">(optional)</span><input name="notes" maxlength="300"></label>
               <label class="hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
             </div>
+            <div class="pay" id="pay">
+              <p class="pay-label">How would you like to pay?</p>
+              <div class="choices pay-choices" id="pay-choices">
+                <button type="button" class="choice" aria-pressed="true" data-pay="shop"><strong>Pay in the shop</strong><span>Card or cash on the day</span></button>
+                <button type="button" class="choice" aria-pressed="false" data-pay="card"><strong>Pay now by card</strong><span>Card, Apple Pay or Google Pay</span></button>
+              </div>
+              <div class="card-panel" id="card-panel" hidden>
+                <p class="sample-badge">Sample payment for the demo. No card is charged.</p>
+                <div class="card-fields">
+                  <label class="wide">Card number<input value="4242 4242 4242 4242" disabled></label>
+                  <label>Expiry<input value="12 / 34" disabled></label>
+                  <label>CVC<input value="123" disabled></label>
+                </div>
+              </div>
+            </div>
             <p class="summary" id="summary" aria-live="polite"></p>
             <button class="btn btn-dark" type="submit" id="confirm">Confirm booking</button>
             <p class="form-error" id="form-error" role="alert"></p>
+            <p class="fine-print">Online card payments are processed securely by Stripe. Card details go straight to Stripe and are never stored on this website.</p>
           </fieldset>
         </form>
 

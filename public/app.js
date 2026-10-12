@@ -11,7 +11,7 @@ const GALLERY = [
   "Blonde textured crop with a taper",
 ];
 
-const state = { shop: null, service: null, barber: "any", date: null, time: null };
+const state = { shop: null, service: null, barber: "any", date: null, time: null, payment: "shop" };
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const addDays = (date, n) => { const d = new Date(`${date}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
@@ -130,6 +130,15 @@ function renderBooking(shop) {
     $('#step-details input[name="name"]').focus({ preventScroll: false });
   });
 
+  $("#pay-choices").addEventListener("click", (e) => {
+    const btn = e.target.closest(".choice");
+    if (!btn) return;
+    pressed($("#pay-choices"), btn);
+    state.payment = btn.dataset.pay;
+    $("#card-panel").hidden = state.payment !== "card";
+    updateSummary();
+  });
+
   $("#booking").addEventListener("submit", submit);
   $("#book-another").addEventListener("click", () => location.reload());
 }
@@ -154,8 +163,11 @@ async function loadTimes() {
   }
 }
 
+const confirmLabel = () => (state.payment === "card" && state.service ? `Pay ${price(state.service.price)} and book` : "Confirm booking");
+
 function updateSummary() {
   const s = state.service;
+  $("#confirm").textContent = confirmLabel();
   $("#summary").textContent = s && state.date && state.time
     ? `${s.name} on ${fmtDay(state.date, { weekday: "long", day: "numeric", month: "long" })} at ${fmtTime(state.time)}, ${price(s.price)}.`
     : "";
@@ -173,14 +185,16 @@ async function submit(e) {
 
   const btn = $("#confirm");
   btn.disabled = true;
-  btn.textContent = "Booking…";
+  btn.textContent = state.payment === "card" ? "Processing payment…" : "Booking…";
   try {
+    // Demo only: stands in for a Stripe Checkout or Payment Element confirmation.
+    if (state.payment === "card") await new Promise((r) => setTimeout(r, 1200));
     const res = await fetch("/api/bookings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         service: state.service.id, barber: state.barber, date: state.date, time: state.time,
-        name, phone, notes: form.notes.value, website: form.website.value,
+        name, phone, notes: form.notes.value, website: form.website.value, payment: state.payment,
       }),
     });
     const data = await res.json();
@@ -190,14 +204,14 @@ async function submit(e) {
       return;
     }
     form.hidden = true;
-    $("#booked-text").textContent = `${data.service} on ${data.day} at ${data.time}. ${price(data.price)}, pay in the shop. Your reference is ${data.reference}, and a text is on its way.`;
+    $("#booked-text").textContent = `${data.service} on ${data.day} at ${data.time}. ${data.payment === "card" ? `${price(data.price)} paid by card` : `${price(data.price)}, pay in the shop`}. Your reference is ${data.reference}, and a text is on its way.`;
     $("#booked").hidden = false;
     $("#booked").focus();
   } catch {
     err.textContent = "That booking didn't go through. Check your connection and try again.";
   } finally {
     btn.disabled = false;
-    btn.textContent = "Confirm booking";
+    btn.textContent = confirmLabel();
   }
 }
 

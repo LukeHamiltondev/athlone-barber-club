@@ -74,7 +74,7 @@ export class BookingService {
     return { date, slots, closedReason: slots.length ? null : "Fully booked that day." };
   }
 
-  book({ serviceId, date, time, barberId, name, phone, notes = "", source }) {
+  book({ serviceId, date, time, barberId, name, phone, notes = "", source, payment = "shop" }) {
     name = String(name || "").trim().slice(0, 80);
     if (!name) throw new BookingError("A name is needed for the booking.");
     if (!isPlausiblePhone(phone)) throw new BookingError("That phone number doesn't look right.");
@@ -97,6 +97,7 @@ export class BookingService {
       phone: normalisePhone(phone),
       notes: String(notes).slice(0, 300),
       source,
+      payment: payment === "card" ? "card" : "shop",
     });
   }
 

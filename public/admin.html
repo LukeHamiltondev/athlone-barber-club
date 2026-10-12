@@ -90,7 +90,7 @@
         <div class="day-group"><h3>${fmtDay(d)}</h3>${list.map((b) => `
           <div class="appt ${b.status}">
             <span class="t">${b.start}</span>
-            <div><strong>${esc(b.name)}</strong>, ${esc(b.serviceName)} (€${b.price})<span class="src">${esc(b.source)}</span>
+            <div><strong>${esc(b.name)}</strong>, ${esc(b.serviceName)} (€${b.price})<span class="src">${esc(b.source)}</span>${b.payment === "card" ? `<span class="src paid">Paid by card</span>` : ""}
               <small><a href="tel:${esc(b.phone)}">${esc(b.phone)}</a>${shop.barbers.length > 1 ? `, with ${esc(barberName(b.barberId))}` : ""}${b.notes ? `. ${esc(b.notes)}` : ""} Ref ${b.id}</small></div>
             ${b.status === "confirmed" ? `<button class="linkbtn" data-cancel="${b.id}">Cancel</button>` : "<span class='muted'>Cancelled</span>"}
           </div>`).join("")}</div>`).join("") : `<p class="muted">No bookings yet. They'll appear here as soon as someone books online or by phone.</p>`;
